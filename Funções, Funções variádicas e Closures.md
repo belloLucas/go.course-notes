@@ -45,3 +45,52 @@ Nesse exemplo, nós declaramos duas **variáveis** e atribuímos a elas a chamad
 
 Depois, fazemos uma verificação: se o valor de `err` for diferente de `nil`, que significa nulo, é porque ocorreu um erro. E se ocorreu, ele vai imprimir o erro.
 Do contrário, vai imprimir o valor da soma.
+
+#### Funções variádicas
+---
+Funções variádicas no Go são funções que recebem um único parâmetro que esse parâmetro pode receber 0 ou N valores.
+
+Exemplo: Uma função de soma que recebe um único parâmetro chamado `numeros`. Pode ser atribuído a esse parâmetro 2 números ou então 50 números ou até mais.
+
+A sintaxe de declaração é simples, definimos o parâmetro da função e na parte do tipo daquele parâmetro usamos `...`:
+```go
+func sum(numeros ...int) int {
+  total := 0
+  for _, numero := range numeros {
+    total += numero
+  }
+  return total
+}
+```
+
+A chamada dessa função pode ser da seguinte forma:
+```go
+func main() {
+  fmt.Println(sum(1, 3, 6, 9, 12, 15, 18, 21, 23, 29, 38, 42))
+}
+```
+
+Note que nesse caso o parâmetro números recebe 12 números diferentes, mas essa mesma função poderia receber apenas 1 ou até apenas 2 números. Bem como poderia receber mais 500, ou 1000.
+
+
+#### Closures
+---
+Closures em Go são funções anônimas que nós podemos definir e usar dentro de outras funções. Sua sintaxe é simples: 
+```go
+func main() {
+	func() int {
+		//Bloco da função anônima
+	}()
+}
+```
+
+Essas funções podem ser atribuídas a uma variável, para que a variável guarde o valor de retorno delas:
+
+```go
+func main() {
+  total := func() int {
+    return sum(1,3,6,9,12,15,18,21,23, 29, 38, 42) * 2
+  }()
+  fmt.Println(total)
+}
+```
